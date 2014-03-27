@@ -12,19 +12,16 @@ RUN mkdir -p /var/log/supervisor
 
 ADD ./supervisord.conf /etc/supervisor/supervisord.conf
 ADD ./start_supervisor.sh /start_supervisor.sh
+# Allow us to see the supervisor
+EXPOSE 9001
 
 # Add rsyslog config to monitor supervisord activity
 ADD ./rsyslog-supervisor.conf /etc/rsyslog.d/supervisor.conf
 ADD ./supervisor-rsyslog.conf /etc/supervisor/conf.d/rsyslog.conf
-
 RUN chown syslog:syslog /var/spool/rsyslog/
 
-# Custom services
-#ADD ./files/uwsgi-supervisor.conf /etc/supervisor/conf.d/uwsgi.conf
-#ADD ./files/cron-supervisor.conf /etc/supervisor/conf.d/cron.conf
-#ADD ./files/rsyslog-supervisor.conf /etc/supervisor/conf.d/rsyslog.conf
+# Add sshd, and expose port
+ADD ./supervisor-ssh.conf /etc/supervisor/conf.d/sshd.conf
+EXPOSE 22
 
-#ADD ./files/uwsgi.ini /home/rsstank/uwsgi.ini
-#ADD ./files/crontab /etc/crontab
-#ADD ./files/cron-rsyslog.conf /etc/rsyslog.d/60-cron.conf
-CMD ["/start_supervisor.sh"]
+ENTRYPOINT ["/start_supervisor.sh"]
