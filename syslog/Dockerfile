@@ -1,5 +1,5 @@
 # rsyslogd server
-FROM ubuntu:latest
+FROM ubuntu:raring
 MAINTAINER Joel Pitt <joel@ideegeo.com>
 
 RUN apt-get update

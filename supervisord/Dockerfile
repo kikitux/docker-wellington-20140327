@@ -1,7 +1,7 @@
-FROM ubuntu:latest
+FROM ubuntu:raring
 MAINTAINER joel@ideegeo.com
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
+RUN echo "deb http://archive.ubuntu.com/ubuntu raring main universe" > /etc/apt/sources.list
 RUN apt-get update
 RUN apt-get upgrade -y
 
